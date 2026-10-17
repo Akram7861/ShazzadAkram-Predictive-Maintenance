@@ -1,0 +1,88 @@
+name: Predictive Maintenance ML Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "src/**"
+      - "requirements.txt"
+      - ".github/workflows/pipeline.yml"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-data:
+    name: Validate data and create train/test split
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate registered dataset
+        run: python src/validate_data.py
+
+      - name: Create stratified train/test split
+        run: python src/prepare_data.py --input data/engine_data.csv --output-dir artifacts/splits
+
+      - name: Upload train/test split as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: predictive-maintenance-splits
+          path: artifacts/splits/*.csv
+          if-no-files-found: error
+          retention-days: 14
+
+  train-and-evaluate:
+    name: Tune models and evaluate selected model
+    needs: prepare-data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download train/test split artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: predictive-maintenance-splits
+          path: artifacts/splits
+
+      - name: Train, tune and evaluate
+        run: python src/train_model.py --split-dir artifacts/splits --output-dir artifacts/model
+
+      - name: Upload model and evaluation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: predictive-maintenance-model-results
+          path: artifacts/model/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit best model and metrics to repository
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ml): update selected model and evaluation [skip ci]"
+          file_pattern: "artifacts/model/*"
