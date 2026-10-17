@@ -1,9 +1,9 @@
 model,params,mean_cv_f1_weighted,std_cv_f1_weighted,mean_train_f1_weighted,rank,fit_time_seconds_mean,search_elapsed_seconds,is_best_for_model
-AdaBoost,"{""learning_rate"": 1.0, ""n_estimators"": 20}",0.6462286500676658,0.004931568466580164,0.6521214374281591,1,0.19821914037068686,2.236,True
-AdaBoost,"{""learning_rate"": 1.0, ""n_estimators"": 40}",0.6451401770125386,0.001485477427901156,0.6522925080461911,2,0.3920958836873372,2.236,False
-Gradient Boosting,"{""learning_rate"": 0.1, ""max_depth"": 2, ""n_estimators"": 40}",0.6374768343066768,0.0053442756147819796,0.6466478179210439,1,0.5753746032714844,3.503,True
-Random Forest,"{""max_depth"": null, ""min_samples_leaf"": 1, ""n_estimators"": 40}",0.6349723408034073,0.0015375278452301308,0.9997120241416709,1,0.8743764559427897,5.848,True
-Random Forest,"{""max_depth"": null, ""min_samples_leaf"": 1, ""n_estimators"": 20}",0.6325782986386221,0.005277495348109573,0.9976955799566518,2,0.45237358411153156,5.848,False
-Decision Tree,"{""criterion"": ""gini"", ""max_depth"": 8, ""min_samples_leaf"": 1}",0.6077551592226128,0.005559684157325368,0.674073336633506,1,0.05532654126485189,0.584,True
-Gradient Boosting,"{""learning_rate"": 0.1, ""max_depth"": 2, ""n_estimators"": 20}",0.6036280928434401,0.004393665987031669,0.6108914400050202,2,0.28616658846537274,3.503,False
-Decision Tree,"{""criterion"": ""gini"", ""max_depth"": null, ""min_samples_leaf"": 1}",0.5877469129321816,0.0027773180557393354,1.0,2,0.09272384643554688,0.584,False
+AdaBoost,"{""learning_rate"": 1.0, ""n_estimators"": 20}",0.6462286500676658,0.004931568466580164,0.6521214374281591,1,0.18262759844462076,2.074,True
+AdaBoost,"{""learning_rate"": 1.0, ""n_estimators"": 40}",0.6451401770125386,0.001485477427901156,0.6522925080461911,2,0.36124857266743976,2.074,False
+Gradient Boosting,"{""learning_rate"": 0.1, ""max_depth"": 2, ""n_estimators"": 40}",0.6374768343066768,0.0053442756147819796,0.6466478179210439,1,0.5287070274353027,3.281,True
+Random Forest,"{""max_depth"": null, ""min_samples_leaf"": 1, ""n_estimators"": 40}",0.6318105338353827,0.006377064044295754,0.9984970175313851,1,0.809812863667806,5.286,True
+Random Forest,"{""max_depth"": null, ""min_samples_leaf"": 1, ""n_estimators"": 20}",0.624449521369949,0.0036044031896071255,0.9927516385420864,2,0.3965943654378255,5.286,False
+Decision Tree,"{""criterion"": ""gini"", ""max_depth"": 8, ""min_samples_leaf"": 1}",0.6077551592226128,0.005559684157325368,0.674073336633506,1,0.051221609115600586,0.574,True
+Gradient Boosting,"{""learning_rate"": 0.1, ""max_depth"": 2, ""n_estimators"": 20}",0.6036280928434401,0.004393665987031669,0.6108914400050202,2,0.26317596435546875,3.281,False
+Decision Tree,"{""criterion"": ""gini"", ""max_depth"": null, ""min_samples_leaf"": 1}",0.5867522000504437,0.002134351739923208,1.0,2,0.08324670791625977,0.574,False
